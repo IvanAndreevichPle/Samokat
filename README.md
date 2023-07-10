@@ -18,28 +18,31 @@
 ```bash
 cd scooter-test
 ```
-3. Запустите автотесты с помощью Maven:
+3. Запустите автотесты с помощью Maven. Класс с набором тестов называется TestRunner и запускается командой:
 ```bash
-mvn test
+mvn test -Dtest=TestRunner
 ```
 
 Вы также можете указать свой браузер, добавив системное свойство `browser` с соответствующим значением. Например, для запуска тестов в браузере Firefox:
 
 ```bash
-mvn test -Dbrowser=firefox
+mvn test -Dbrowser=firefox -Dtest=TestRunner
 ```
 Аналогично, для запуска теста с использованием Internet Explorer:
 
 ```bash
-mvn test -Dbrowser=ie
+mvn test -Dbrowser=ie -Dtest=TestRunner
 ```
 Если свойство "browser" не указано, будет использоваться браузер Chrome.
+```bash
+mvn test -Dtest=TestRunner
+```
 
 ## Структура проекта
 
-- `src/main/java/com/example/` - пакет для основного кода приложения
-- `src/test/java/com/example/pages/` - пакет для классов страниц веб-приложения
-- `src/test/java/com/example/ScooterTest.java` - основной тестовый класс
+- `src/main/test/ru/practikum_services/qa_scooter/pages/` - пакет для классов страниц веб-приложения
+- `src/main/test/ru/practikum_services/qa_scooter/parametrized/` - пакет для классов параметризованных тестов
+- `src/main/test/ru/practikum_services/TestRunner.java` - основной тестовый класс
 
 ## Ваш вклад
 
