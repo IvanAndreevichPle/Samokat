@@ -29,17 +29,14 @@ public class OrderScooter {
     private final By dateForScooterField = By.xpath(".//input[@placeholder='* Когда привезти самокат']");
     // Поле "Срок аренды"
     private final By rentalPeriodField = By.xpath(".//div[@class='Dropdown-placeholder']");
-    // Вариант "Четверо суток" из выпадающего списка
-    private final By rentalPeriod = By.xpath(".//div[@class='Dropdown-option' and text()='четверо суток']");
-    // Цвет "серая безысходность" в поле "Цвет самоката"
-    private final By colorGrey = By.xpath(".//input[@id='grey']");
     // Поле "Комментарий"
     private final By commentField = By.xpath(".//input[@placeholder='Комментарий для курьера']");
     // Кнопка "Заказать" (внизу экрана)
     private final By orderButton = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[text()='Заказать']");
     // Поп-ап с уведомлением об успешном оформлении
     private final By PopUpWithSuccessfulOrder = By.className("Order_ModalHeader__3FDaJ");
-
+    public static final By topOrderButton = By.className("Button_Button__ra12g");
+    public static final By middleOrderButton = By.xpath("//div[@class='Home_FinishButton__1_cWm']//button");
 
     public void setName(String name) {
         driver.findElement(nameField).sendKeys(name);
@@ -81,13 +78,13 @@ public class OrderScooter {
         driver.findElement(dateForScooterField).sendKeys(Keys.ENTER);
     }
 
-    public void setRentalPeriod() {
+    public void setRentalPeriod(String period) {
         driver.findElement(rentalPeriodField).click();
-        driver.findElement(rentalPeriod).click();
+        driver.findElement(By.xpath(".//div[@class='Dropdown-option' and text()='" + period + "']")).click();
     }
 
-    public void setColorGrey() {
-        driver.findElement(colorGrey).click();
+    public void setColour(String colour) {
+        driver.findElement(By.xpath("//label[@class='Checkbox_Label__3wxSf'][text() = '" + colour + "']")).click();
     }
 
     public void setComment(String comment) {

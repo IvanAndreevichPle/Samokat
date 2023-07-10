@@ -15,9 +15,9 @@ import org.openqa.selenium.WebDriver;
 import ru.praktikum_services.qa_scooter.pages.MainPage;
 import ru.praktikum_services.qa_scooter.pages.OrderScooter;
 
-import java.util.concurrent.TimeUnit;
-
 import static org.hamcrest.CoreMatchers.startsWith;
+import static ru.praktikum_services.qa_scooter.pages.OrderScooter.middleOrderButton;
+import static ru.praktikum_services.qa_scooter.pages.OrderScooter.topOrderButton;
 
 @RunWith(Parameterized.class)
 public class OrderTest {
@@ -29,22 +29,26 @@ public class OrderTest {
     private final String telephone;
     private final String date;
     private final String comment;
+    private final String period;
+    private final String colour;
     private final By by;
     // Кнопка "Заказать"
-    private static final By topOrderButton = By.className("Button_Button__ra12g");
-    private static final By middleOrderButton = By.xpath("//div[@class='Home_FinishButton__1_cWm']//button");
+
 
     private static final Logger logger = LogManager.getLogger(QuestionTest.class);
 
 
-    public OrderTest(By by, String name, String surname, String address, String telephone, String date, String comment) {
+    public OrderTest(By by, String name, String surname, String address, String telephone, String date, String period, String colour, String comment) {
         this.by = by;
         this.name = name;
         this.surname = surname;
         this.address = address;
         this.telephone = telephone;
         this.date = date;
+        this.period = period;
+        this.colour = colour;
         this.comment = comment;
+
     }
 
     @Before
@@ -70,11 +74,11 @@ public class OrderTest {
         driver.quit();
     }
 
-    @Parameterized.Parameters (name = "Тест кнопки заказать {index}")
+    @Parameterized.Parameters(name = "Тест кнопки заказать {index}")
     public static Object[][] getRegistrationOnOrderPage() {
         return new Object[][]{
-                {topOrderButton, "Иван", "Иванов", "г.Москва ул. Дворовая д.51", "+79062878999", "01.09.2023", "Самокат - пушка"},
-                {middleOrderButton, "Прохор", "Лапин", "г.Москва ул. Нагатина д.101", "+79812151421", "01.10.2023", "Самока- улитка"},
+                {topOrderButton, "Иван", "Иванов", "г.Москва ул. Дворовая д.51", "+79062878999", "01.09.2023", "двое суток", "чёрный жемчуг", "Самокат - пушка"},
+                {middleOrderButton, "Прохор", "Лапин", "г.Москва ул. Нагатина д.101", "+79812151421", "01.10.2023", "семеро суток", "серая безысходность", "Самока- улитка"},
         };
     }
 
@@ -101,9 +105,9 @@ public class OrderTest {
         logger.info("Шаг 8: Заполнить поле 'Дата'");
         orderScooter.setDate(date);
         logger.info("Шаг 9: Заполнить поле 'Период'");
-        orderScooter.setRentalPeriod();
+        orderScooter.setRentalPeriod(period);
         logger.info("Шаг 10: Выбрать чек-бокс 'Цвет'");
-        orderScooter.setColorGrey();
+        orderScooter.setColour(colour);
         logger.info("Шаг 11: Заполнить поле 'Комментарий'");
         orderScooter.setComment(comment);
         logger.info("Шаг 12: Нажать кнопку 'Заказать'");
