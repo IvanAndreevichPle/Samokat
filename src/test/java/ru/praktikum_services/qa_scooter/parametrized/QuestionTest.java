@@ -13,6 +13,8 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import ru.praktikum_services.qa_scooter.pages.MainPage;
 
+import java.io.IOException;
+
 @RunWith(Parameterized.class)
 public class QuestionTest {
     private static WebDriver driver;
@@ -27,18 +29,24 @@ public class QuestionTest {
     public static void setUp() {
         String browser = System.getProperty("browser");
         DriverManagerType driverType;
+        try {
+            System.getProperties().load(ClassLoader.getSystemResourceAsStream("application.properties"));
 
-        if (browser != null && browser.equalsIgnoreCase("firefox")) {
-            driverType = DriverManagerType.FIREFOX;
-        } else if (browser != null && browser.equalsIgnoreCase("ie")) {
-            driverType = DriverManagerType.IEXPLORER;
-        } else {
-            driverType = DriverManagerType.CHROME;
+            if (browser != null && browser.equalsIgnoreCase("firefox")) {
+                driverType = DriverManagerType.FIREFOX;
+            } else if (browser != null && browser.equalsIgnoreCase("ie")) {
+                driverType = DriverManagerType.IEXPLORER;
+            } else {
+                driverType = DriverManagerType.CHROME;
+            }
+
+            WebDriverManager.getInstance(driverType).setup();
+            driver = WebDriverManager.getInstance(driverType).create();
+            driver.get(System.getProperty("url"));
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        WebDriverManager.getInstance(driverType).setup();
-        driver = WebDriverManager.getInstance(driverType).create();
-
-        driver.get("https://qa-scooter.praktikum-services.ru");
     }
 
     @AfterClass
