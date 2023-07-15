@@ -28,6 +28,7 @@ public class OrderTest {
     private final String name;
     private final String surname;
     private final String address;
+    private final String subway;
     private final String telephone;
     private final String date;
     private final String comment;
@@ -40,11 +41,12 @@ public class OrderTest {
     private static final Logger logger = LogManager.getLogger(QuestionTest.class);
 
 
-    public OrderTest(By by, String name, String surname, String address, String telephone, String date, String period, String colour, String comment) {
+    public OrderTest(By by, String name, String surname, String address, String subway, String telephone, String date, String period, String colour, String comment) {
         this.by = by;
         this.name = name;
         this.surname = surname;
         this.address = address;
+        this.subway = subway;
         this.telephone = telephone;
         this.date = date;
         this.period = period;
@@ -85,8 +87,8 @@ public class OrderTest {
     @Parameterized.Parameters(name = "Тест кнопки заказать {index}")
     public static Object[][] getRegistrationOnOrderPage() {
         return new Object[][]{
-                {topOrderButton, "Иван", "Иванов", "г.Москва ул. Дворовая д.51", "+79062878999", "01.09.2023", "двое суток", "чёрный жемчуг", "Самокат - пушка"},
-                {middleOrderButton, "Прохор", "Лапин", "г.Москва ул. Нагатина д.101", "+79812151421", "01.10.2023", "семеро суток", "серая безысходность", "Самока- улитка"},
+                {topOrderButton, "Иван", "Иванов", "г.Москва ул. Дворовая д.51", "Красносельская", "+79062878999",  "01.09.2023", "двое суток", "чёрный жемчуг", "Самокат - пушка"},
+                {middleOrderButton, "Прохор", "Лапин", "г.Москва ул. Нагатина д.101", "Красносельская", "+79812151421",  "01.10.2023", "семеро суток", "серая безысходность", "Самока- улитка"},
         };
     }
 
@@ -104,7 +106,8 @@ public class OrderTest {
         logger.info("Шаг 4: Заполнить поле 'Адрес'");
         orderScooter.setAddress(address);
         logger.info("Шаг 5: Заполнить поле 'Метро'");
-        orderScooter.setSubwayStation();
+        orderScooter.setSubwayStation(subway);
+
         logger.info("Шаг 6: Заполнить поле 'Телефон'");
         orderScooter.setTelephone(telephone);
         logger.info("Шаг 7: Нажать кнопку 'Далее'");

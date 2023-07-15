@@ -18,7 +18,7 @@ public class OrderScooter {
     // Поле "Станция метро"
     private final By subwayStationField = By.xpath(".//input[@placeholder='* Станция метро']");
     // Станция метро (1..237)
-    private final By subwayStation = By.xpath(".//div[@class='select-search__select']/ul/li/button[@value='105']");
+    private final By subwayStation = By.xpath(".//div[@class='select-search__select']");
     // Поле "Телефон"
     private final By telephoneField = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
     // Кнопка "Далее"
@@ -50,11 +50,13 @@ public class OrderScooter {
         driver.findElement(addressField).sendKeys(address);
     }
 
-    public void setSubwayStation() {
+    public void setSubwayStation(String subway) {
         driver.findElement(subwayStationField).click();
         WebElement element = driver.findElement(subwayStation);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
-        driver.findElement(subwayStation).click();
+        driver.findElement(subwayStationField).sendKeys(subway);
+        driver.findElement(subwayStationField).sendKeys(Keys.DOWN);
+        driver.findElement(subwayStationField).sendKeys(Keys.ENTER);
     }
 
     public void setTelephone(String telephone) {
